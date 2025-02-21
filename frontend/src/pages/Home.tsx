@@ -5,7 +5,7 @@ import TopDoctors from "../components/TopDoctors"
 
 function Home() {
     return (
-        <main className='max-w-6xl mx-auto py-3 space-y-2.5'>
+        <main className='max-w-6xl  mx-auto py-3 space-y-2.5'>
             <Hero />
             <Specialty />
             <TopDoctors />

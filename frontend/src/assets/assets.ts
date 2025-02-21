@@ -58,6 +58,7 @@ export interface DoctorType {
 
 export const assets = {
   appointment_img,
+  doc1,
   header_img,
   group_profiles,
   logo,

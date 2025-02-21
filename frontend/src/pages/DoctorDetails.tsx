@@ -30,7 +30,7 @@ interface AppointmentDaysType {
 function DoctorDetails() {
     const [doctor, setDoctor] = useState<DoctorType | undefined>(undefined)
     const [appointmentDays, setAppointmentDays] = useState<AppointmentDaysType[]>(generate7days())
-    const [selectedAppointments, setSelectedAppointments] = useState<AppointmentDaysType[]>([])
+    const [selectedAppointment, setSelectedAppointment] = useState<AppointmentDaysType | undefined>(undefined)
     const [relatedDoctors, setRelateDoctors] = useState<DoctorType[]>([])
     const [selectedHour, setSelectedHour] = useState<string>('')
     const { doctorId } = useParams()
@@ -54,15 +54,14 @@ function DoctorDetails() {
         return () => clearInterval(intervalId)
     }, [])
 
-
+    console.log(selectedAppointment)
     const handleBookAppointment = (selectedDate: AppointmentDaysType) => {
-        const isSelected = selectedAppointments.some(appointment => appointment.dayName === selectedDate.dayName && appointment.date === selectedDate.date)
-
-        if (isSelected) {
-            setSelectedAppointments(prevAppointments => prevAppointments.filter(appointments => !(appointments.dayName === selectedDate.dayName && appointments.date === selectedDate.date)))
-        } else {
-            setSelectedAppointments([...selectedAppointments, selectedDate])
-        }
+        setSelectedAppointment((prevSelectedAppointment) => {
+            if (prevSelectedAppointment?.date === selectedDate.date && prevSelectedAppointment?.dayName === selectedDate.dayName) {
+                return undefined
+            }
+            return selectedDate
+        })
     }
 
     const handleSelectHour = (hour: string) => {
@@ -102,7 +101,7 @@ function DoctorDetails() {
                                     appointmentDays.map((day, index) => (
                                         <div
                                             key={index}
-                                            className={`${selectedAppointments.some(appointment => appointment.date === day.date && appointment.dayName === day.dayName) ? 'bg-[#5F6FFF] text-white border-transparent' : ''}border-gray-500 border-[1px] text-[#565656] py-4 drop-shadow-md px-2 w-16 rounded-4xl `}
+                                            className={`${selectedAppointment?.date === day.date && selectedAppointment?.dayName === day.dayName ? 'bg-[#5F6FFF] text-white border-transparent' : ''}border-gray-500 border-[1px] text-[#565656] py-4 drop-shadow-md px-2 w-16 rounded-4xl `}
                                             onClick={() => handleBookAppointment(day)}>
                                             <p className="flex flex-col gap-2 items-center justify-center">
                                                 <span>{day.dayName}</span>

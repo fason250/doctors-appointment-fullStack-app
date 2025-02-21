@@ -14,7 +14,7 @@ function Header() {
                 <li><NavLink to={"/about"} className={({ isActive }) => isActive ? `text-[#5F6FFF]` : ``}>About</NavLink></li>
                 <li><NavLink to={"/contact"} className={({ isActive }) => isActive ? `text-[#5F6FFF]` : ``}>Contact</NavLink></li>
             </ul>
-            <button className="py-3 px-6 rounded-3xl text-sm bg-[#5F6FFF] text-white cursor-pointer">Create Account</button>
+            <button onClick={() => navigate("/login")} className="py-3 px-6 rounded-3xl text-sm bg-[#5F6FFF] text-white cursor-pointer">Create Account</button>
         </header>
     )
 }
